@@ -13,9 +13,13 @@ documentIsReady(()=> {
 })
 
 function handleClick(e) {
-  const itemContainer = document.getElementById('dashboard-left-added-items');
+  const id =  e.target.getAttribute("data-goal-target");
+  const itemContainer = document.getElementById(id);
   const newItem = document.createElement('li');
-  newItem.innerHTML = "new thing";
-  itemContainer.appendChild(newItem);
+  const value = itemContainer.parentNode.querySelector('input.dashboard-goal-input').value
+  if (value) {
+    newItem.innerHTML = value;
+    itemContainer.appendChild(newItem);
+  }
 }
 
