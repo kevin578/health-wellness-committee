@@ -1,4 +1,3 @@
-<style lang="scss" global>
 .container {
   padding-right: 15px;
   padding-left: 15px;
@@ -20,16 +19,3 @@
     width: 1170px;
   }
 }
-</style>
-<script>
-  import Table from './Table.svelte';
-</script>
-<html>
-  <head>
-    <title>Health and Wellness</title>
-  </head>
-  <body>
-    <div class="container"></div>
-    <Table />
-  </body>
-</html>
