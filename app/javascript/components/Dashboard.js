@@ -23,20 +23,38 @@ const DateHeader = styled(HeaderCell)`
 `;
 
 const Dashboard = (props)=> {
+
+  function getHeaders() {
+    return props.family_members.map((member, i)=> {
+     return <HeaderCell key = {`${member}-${i}`}>{member.name}</HeaderCell>
+    })
+  }
+  console.log(props)
+
+  function getBody() {
+    return props.health_goals.map((goal)=> {
+      const date = new Date(goal.date) 
+      
+      return (
+        <tr>
+          <td>{`${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`}</td>
+          
+        </tr>
+      )
+    })
+  }
+
   return (
     <Container>
       <Table>
         <TableHeader>
           <tr>
             <DateHeader>Date</DateHeader>
-            <HeaderCell>Kevin</HeaderCell>
-            <HeaderCell>Alissa</HeaderCell>
+            {getHeaders()}
           </tr>
         </TableHeader>
         <tbody>
-          <tr>
-            <td></td>
-          </tr>
+          {getBody()}
         </tbody>
       </Table>
     </Container>
