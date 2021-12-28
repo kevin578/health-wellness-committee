@@ -3,7 +3,7 @@ class Family < ApplicationRecord
   has_many :meetings
 
   def health_goals
-    self.meetings.reverse.map do | meeting |
+    self.meetings.order(date: :desc).map do | meeting |
       {
         date: meeting[:date],
         goals: meeting.health_goals

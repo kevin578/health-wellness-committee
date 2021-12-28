@@ -32,16 +32,20 @@ const Dashboard = (props)=> {
   console.log(props)
 
   function getBody() {
-    return props.health_goals.map((goal)=> {
-      const date = new Date(goal.date) 
-      
+    return props.health_goals.map((meeting, i)=> {
+      const date = new Date(meeting.date) 
       return (
         <tr>
-          <td>{`${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`}</td>
-          
+          <td key = {`${meeting.date}-${i}`}>{`${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`}</td>
+          {props.family_members.map(m => <td>{getGoals(meeting.goals, m.id)}</td>)}
         </tr>
       )
     })
+  }
+
+  function getGoals(goals, user) {
+    const userGoals = goals.filter(g => g.member_id == user)
+    return userGoals.map(g => <p>{g.goal}</p>)
   }
 
   return (
