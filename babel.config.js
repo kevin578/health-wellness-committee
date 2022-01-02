@@ -17,24 +17,8 @@ module.exports = function(api) {
 
   return {
     presets: [
-      isTestEnv && [
-        require('@babel/preset-env').default,
-        {
-          targets: {
-            node: 'current'
-          }
-        }
-      ],
-      (isProductionEnv || isDevelopmentEnv) && [
-        require('@babel/preset-env').default,
-        {
-          forceAllTransforms: true,
-          useBuiltIns: 'entry',
-          corejs: 3,
-          modules: false,
-          exclude: ['transform-typeof-symbol']
-        }
-      ]
+      "@babel/preset-env",
+      "@babel/preset-react"
     ].filter(Boolean),
     plugins: [
       require('babel-plugin-macros'),
