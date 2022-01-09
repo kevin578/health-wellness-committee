@@ -9,15 +9,14 @@ const Dashboard = (props)=> {
      return <th className = "border-none pt-1" key = {`${member}-${i}`}>{member.name}</th>
     })
   }
-  console.log(props)
 
   function getBody() {
     return props.health_goals.map((meeting, i)=> {
       const date = new Date(meeting.date) 
       return (
-        <tr>
+        <tr key = {`meeting-${i}`}>
           <td className = "p-4" key = {`${meeting.date}-${i}`}>{`${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`}</td>
-          {props.family_members.map(m => <td className = "p-4">{getGoals(meeting.goals, m.id)}</td>)}
+          {props.family_members.map((m, i) => <td key = {`member-${i}`}  className = "p-4">{getGoals(meeting.goals, m.id)}</td>)}
         </tr>
       )
     })
@@ -25,7 +24,7 @@ const Dashboard = (props)=> {
 
   function getGoals(goals, user) {
     const userGoals = goals.filter(g => g.member_id == user)
-    return userGoals.map(g => <Goal text = {g.goal} />)
+    return userGoals.map((g, i) => <Goal key = {`goal-${i}`} text = {g.goal} />)
   }
 
   return (
