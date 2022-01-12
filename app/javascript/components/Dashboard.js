@@ -24,7 +24,7 @@ const Dashboard = (props)=> {
 
   function getGoals(goals, user) {
     const userGoals = goals.filter(g => g.member_id == user)
-    return userGoals.map((g, i) => <Goal key = {`goal-${i}`} text = {g.goal} />)
+    return userGoals.map((g, i) => <Goal goalId = {g.id} key = {`goal-${i}`} text = {g.goal} csrf_token = {props.csrf_token} />)
   }
 
   return (

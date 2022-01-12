@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
   devise_for :members
-  root 'dashboard#index'
+  get 'goals', to: 'goal#index'
+  post 'update_goal', to: "goal#update_goal"
 end
