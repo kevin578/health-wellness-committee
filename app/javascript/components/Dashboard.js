@@ -11,12 +11,12 @@ const Dashboard = (props)=> {
   }
 
   function getBody() {
-    return props.health_goals.map((meeting, i)=> {
+    return props.meetings.map((meeting, i)=> {
       const date = new Date(meeting.date) 
       return (
         <tr key = {`meeting-${i}`}>
-          <td className = "p-4" key = {`${meeting.date}-${i}`}>{`${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`}</td>
-          {props.family_members.map((m, i) => <td key = {`member-${i}`}  className = "p-4">{getGoals(meeting.goals, m.id)}</td>)}
+          <td className = "p-4" key = {`${meeting.date}-${i}`}>{`${date.getMonth() + 1}/${date.getDate() + 1}/${date.getFullYear()}`}</td>
+          {props.family_members.map((m, i) => <td key = {`member-${i}`}  className = "p-4">{getGoals(meeting.health_goals, m.id)}</td>)}
         </tr>
       )
     })
