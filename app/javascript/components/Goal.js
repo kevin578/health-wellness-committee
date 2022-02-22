@@ -2,7 +2,8 @@ import React, {useState, useRef, useEffect} from 'react';
 import { FiEdit3, FiXCircle, FiThumbsUp, FiThumbsDown, FiChevronLeft, FiChevronRight, FiChevronsLeft, FiPlusCircle } from 'react-icons/fi';
 
 const Goal = (props)=> {
-  const [mode, setMode] = useState('show')
+  const initialMode = props.isCurrentMeeting ? 'current' : 'show'
+  const [mode, setMode] = useState(initialMode)
   const [inputValue, setInputValue] = useState(props.text)
   const [goalStatus, _setGoalStatus] = useState(props.goalStatus)
   const goalStatusRef = useRef(goalStatus)
@@ -79,7 +80,13 @@ const Goal = (props)=> {
     .then(res => console.log(res))
   }
 
-  if (mode == 'show') {
+  if (mode == 'current') {
+    return (
+      <input ref = {goalInput} onChange = {(e)=> setInputValue(e.target.value)} className = "w-full bg-transparent outline-none py-1 my-1 border-solid border-indigo-700 border-b" type="text" value = {inputValue} />
+    )
+  }
+
+  else if (mode == 'show') {
     return (
       <p className = {`py-1 my-1 ${getGoalBackground()}`} onClick = {()=> setMode('select')}>{inputValue}</p>
     )

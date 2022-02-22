@@ -1,1 +1,1 @@
-<%= react_component("Dashboard", {meetings: @meetings, health_goals: @health_goals, family_members: @family_members, csrf_token: session[:_csrf_token]}) %>
+<%= react_component("Dashboard", {current_meeting_id: @current_meeting_id, meetings: @meetings, health_goals: @health_goals, family_members: @family_members, csrf_token: session[:_csrf_token]}) %>
