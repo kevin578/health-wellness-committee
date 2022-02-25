@@ -4,7 +4,7 @@ import { FiEdit3, FiXCircle, FiThumbsUp, FiThumbsDown, FiChevronLeft, FiChevronR
 const Goal = (props)=> {
   const initialMode = props.isCurrentMeeting ? 'current' : 'show'
   const [mode, setMode] = useState(initialMode)
-  const [inputValue, setInputValue] = useState(props.text)
+  const [inputValue, _setInputValue] = useState(props.text)
   const [goalStatus, _setGoalStatus] = useState(props.goalStatus)
   const goalStatusRef = useRef(goalStatus)
   const goalInput = useRef(null);
@@ -17,7 +17,7 @@ const Goal = (props)=> {
     if (mode == 'select') {
       document.addEventListener('click', handleSelectedGoalOutsideClick);
     }
-    if (mode == 'edit') {
+    if (mode == 'edit' || mode == 'current') {
       document.addEventListener('click', handleGoalInputOutsideClick);
     }
   }, [mode])
@@ -29,9 +29,15 @@ const Goal = (props)=> {
     }
   }, [mode])
 
+  function setInputValue(i) {
+    _setInputValue(i)
+    saveGoal(goalStatus, i)
+  }
+
   function setGoalStatus(g) {
      goalStatusRef.current = g;
     _setGoalStatus(g);
+    saveGoal(g, inputValue)
   }
 
   function getGoalBackground() {
@@ -57,16 +63,17 @@ const Goal = (props)=> {
 
   function handleOutsideClick(ref, event) {
     if (ref.current && !ref.current.contains(event.target)) {
-      saveGoal();
-      setMode('show')
+     if (!(mode == 'current')) setMode('show')
     }
   }
 
-  function saveGoal() {
+  function saveGoal(g, i) {
     const updatedGoal = {
       goalId: props.goalId,
-      inputValue,
-      goalStatus: goalStatusRef.current
+      inputValue: i,
+      goalStatus: g,
+      memberId: props.userId,
+      meetingId: props.meetingId
     }
     fetch('/update_goal', {
       method: "POST",

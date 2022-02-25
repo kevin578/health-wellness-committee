@@ -17,7 +17,7 @@ const Dashboard = (props)=> {
     const newMeetings = [...meetings]
     newMeetings.map(m => {
       if (m.id == props.current_meeting_id) {
-        m.health_goals.push({goal: 'new goal', member_id, status: 0, isCurrentMeeting: true})
+        m.health_goals.push({goal: 'new goal', member_id, status: 0, isCurrentMeeting: true, meeting_id: props.current_meeting_id})
       }
     })
     setMeetings(newMeetings)
@@ -44,7 +44,7 @@ const Dashboard = (props)=> {
 
   function getGoals(goals, user, isCurrentMeeting) {
     const userGoals = goals.filter(g => g.member_id == user)
-    return userGoals.map((g, i) => <Goal isCurrentMeeting = {isCurrentMeeting} goalId = {g.id} key = {`goal-${i}`} text = {g.goal} csrf_token = {props.csrf_token} goalStatus = {g.status} />)
+    return userGoals.map((g, i) => <Goal isCurrentMeeting = {isCurrentMeeting} meetingId = {g.meeting_id} userId = {user} goalId = {g.id} key = {`goal-${i}`} text = {g.goal} csrf_token = {props.csrf_token} goalStatus = {g.status} />)
   }
 
   return (
