@@ -1,9 +1,9 @@
 require 'CSV'
 namespace :health_goals do
   task add_from_csv: :environment do
-    data = CSV.read("/Users/kevinbriggs/Documents/code/health_wellness_comittee/lib/tasks/goals.csv", {headers: true, force_quotes: true})
-    
     # commented out code initiated database
+    # data = CSV.read("/Users/kevinbriggs/Documents/code/health_wellness_comittee/lib/tasks/goals.csv", {headers: true, force_quotes: true})
+    
 
     # data.each_with_index do |row, i|
     #   date = DateTime.parse(row.field('Date'), true)
