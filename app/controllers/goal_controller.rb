@@ -12,12 +12,13 @@ class GoalController < ApplicationController
   end
 
   def update_goal
-    if params["goalId"].present? 
-      goal = HealthGoal.find(params["goalId"])
-      res = goal.update( goal: params["inputValue"], status: params["goalStatus"] )
-    else
-      res = HealthGoal.create( goal: params["inputValue"], status: params["goalStatus"], member_id: params["memberId"], meeting_id: params["meetingId"] )
-    end
+    goal = HealthGoal.find(params["goalId"])
+    res = goal.update( goal: params["inputValue"], status: params["goalStatus"] )
     render json: res
+  end
+
+  def new_goal
+    res = HealthGoal.create( goal: params["inputValue"], status: params["goalStatus"], member_id: params["memberId"], meeting_id: params["meetingId"] )
+    render json:res
   end
 end

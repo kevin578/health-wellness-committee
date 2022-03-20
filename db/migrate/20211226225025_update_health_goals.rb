@@ -1,6 +1,6 @@
 class UpdateHealthGoals < ActiveRecord::Migration[5.2]
   def change
     rename_column :health_goals, :type, :goal_type
-    change_column :health_goals, :status, :integer
+    change_column :health_goals, :status, :integer, using: 'status::integer'
   end
 end

@@ -6,6 +6,7 @@ const Goal = (props)=> {
   const [mode, setMode] = useState(initialMode)
   const [inputValue, _setInputValue] = useState(props.text)
   const [goalStatus, _setGoalStatus] = useState(props.goalStatus)
+  const [goalId, setGoalId] = useState(props.goalId)
   const goalStatusRef = useRef(goalStatus)
   const goalInput = useRef(null);
   const selectedGoal = useRef(null);
@@ -29,15 +30,21 @@ const Goal = (props)=> {
     }
   }, [mode])
 
+  useEffect(()=> {
+    if (!props.goalId) {
+      newGoal()
+    }
+  }, [])
+
   function setInputValue(i) {
     _setInputValue(i)
-    saveGoal(goalStatus, i)
+    updateGoal(goalStatus, i)
   }
 
   function setGoalStatus(g) {
      goalStatusRef.current = g;
     _setGoalStatus(g);
-    saveGoal(g, inputValue)
+    updateGoal(g, inputValue)
   }
 
   function getGoalBackground() {
@@ -67,24 +74,40 @@ const Goal = (props)=> {
     }
   }
 
-  function saveGoal(g, i) {
-    const updatedGoal = {
-      goalId: props.goalId,
-      inputValue: i,
-      goalStatus: g,
+  function newGoal() {
+    saveGoal('/new-goal', {
+      inputValue,
+      goalStatus,
       memberId: props.userId,
       meetingId: props.meetingId
-    }
-    fetch('/update_goal', {
-      method: "POST",
-      headers: {
-        "X-CSRF-Token": props.csrf_token, 
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(updatedGoal)
     })
-    .then(res => res.json())
-    .then(res => console.log(res))
+    .then((res)=> {
+      setGoalId(res.id)
+    })
+  }
+
+  function updateGoal(g, i) {
+    if (!goalId) return
+    saveGoal('/update-goal', {
+      goalId,
+      inputValue: i,
+      goalStatus: g,
+    })
+  }
+
+  function saveGoal(url, body) {
+    return new Promise((resolve)=> {
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "X-CSRF-Token": props.csrf_token, 
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      })
+      .then(res => res.json())
+      .then(res => resolve(res))
+    })
   }
 
   if (mode == 'current') {
