@@ -1,4 +1,4 @@
-require 'CSV'
+require 'csv'
 namespace :health_goals do
   task add_from_csv: :environment do
     # commented out code initiated database
