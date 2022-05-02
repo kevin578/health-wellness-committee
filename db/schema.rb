@@ -10,43 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_26_225724) do
+ActiveRecord::Schema.define(version: 2022_03_22_020457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "families", force: :cascade do |t|
-    t.string "name"
+  create_table "families", id: :integer, default: nil, force: :cascade do |t|
+    t.text "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "health_goals", force: :cascade do |t|
+  create_table "health_goals", id: :integer, default: nil, force: :cascade do |t|
     t.text "goal"
-    t.integer "status", default: 0
-    t.integer "goal_type", default: 0
+    t.bigint "status", default: 0
+    t.bigint "goal_type", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "member_id"
-    t.integer "meeting_id"
+    t.bigint "member_id"
+    t.bigint "meeting_id"
   end
 
-  create_table "meetings", force: :cascade do |t|
-    t.string "members"
+  create_table "meetings", id: :integer, default: nil, force: :cascade do |t|
+    t.text "members"
     t.datetime "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "family_id"
+    t.bigint "family_id"
   end
 
-  create_table "members", force: :cascade do |t|
-    t.string "name"
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
+  create_table "members", id: :integer, default: nil, force: :cascade do |t|
+    t.text "name"
+    t.text "email", default: "", null: false
+    t.text "encrypted_password", default: "", null: false
+    t.text "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "family_id"
+    t.bigint "family_id"
     t.index ["email"], name: "index_members_on_email", unique: true
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
   end
