@@ -18,7 +18,6 @@ const ContainerStyle = styled.div`
 `;
 
 const Container = (props)=> {
-  console.log(props.children)
   return (
     <ContainerStyle>
       {props.children}

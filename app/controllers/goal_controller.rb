@@ -19,6 +19,11 @@ class GoalController < ApplicationController
 
   def new_goal
     res = HealthGoal.create( goal: params["inputValue"], status: params["goalStatus"], member_id: params["memberId"], meeting_id: params["meetingId"] )
-    render json:res
+    render json: res
+  end
+
+  def delete_goal
+    res = HealthGoal.destroy(params["goal_id"])
+    render json: res
   end
 end

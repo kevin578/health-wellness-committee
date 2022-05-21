@@ -1,5 +1,5 @@
-import React, {useState, useRef, useEffect} from 'react';
-import { FiEdit3, FiXCircle, FiThumbsUp, FiThumbsDown, FiChevronLeft, FiChevronRight, FiChevronsLeft, FiPlusCircle } from 'react-icons/fi';
+import React, {useState, useRef, useEffect } from 'react';
+import { FiEdit3, FiXSquare, FiThumbsUp, FiThumbsDown, FiChevronLeft, FiChevronRight, FiChevronsLeft, FiPlusCircle } from 'react-icons/fi';
 
 const Goal = (props)=> {
   const initialMode = props.isCurrentMeeting ? 'current' : 'show'
@@ -33,6 +33,9 @@ const Goal = (props)=> {
   useEffect(()=> {
     if (!props.goalId) {
       newGoal()
+    }
+    if (goalInput && props.newInput) {
+      goalInput.current.focus()
     }
   }, [])
 
@@ -75,7 +78,7 @@ const Goal = (props)=> {
   }
 
   function newGoal() {
-    saveGoal('/new-goal', {
+    props.saveGoal('/new-goal', {
       inputValue,
       goalStatus,
       memberId: props.userId,
@@ -88,31 +91,19 @@ const Goal = (props)=> {
 
   function updateGoal(g, i) {
     if (!goalId) return
-    saveGoal('/update-goal', {
+    props.saveGoal('/update-goal', {
       goalId,
       inputValue: i,
       goalStatus: g,
     })
   }
 
-  function saveGoal(url, body) {
-    return new Promise((resolve)=> {
-      fetch(url, {
-        method: "POST",
-        headers: {
-          "X-CSRF-Token": props.csrf_token, 
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(body)
-      })
-      .then(res => res.json())
-      .then(res => resolve(res))
-    })
-  }
-
   if (mode == 'current') {
     return (
-      <input ref = {goalInput} onChange = {(e)=> setInputValue(e.target.value)} className = "w-full bg-transparent outline-none py-1 my-1 border-solid border-indigo-700 border-b" type="text" value = {inputValue} />
+      <div className = "relative">
+        <input ref = {goalInput} onChange = {(e)=> setInputValue(e.target.value)} className = "w-full bg-transparent outline-none py-1 my-1 border-solid border-indigo-700 border-b" type="text" value = {inputValue} />
+        <FiXSquare onClick = {()=> props.removeGoal(props.goalId)} className = "mx-1 cursor-pointer absolute right-0 bottom-2"/>
+      </div>
     )
   }
 
@@ -135,7 +126,7 @@ const Goal = (props)=> {
           <span className = "flex">
             <FiEdit3 onClick = {()=> handleEditClick()} className = "mx-1 cursor-pointer"/>
             <FiPlusCircle className = "mx-1 cursor-pointer"/>
-            <FiXCircle className = "mx-1 cursor-pointer"/>
+            <FiXSquare className = "mx-1 cursor-pointer"/>
           </span>
         </div>
       </div>
