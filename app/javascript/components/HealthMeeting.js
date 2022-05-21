@@ -8,11 +8,20 @@ const HealthMeeting = (props)=> {
   const csrf_token = useContext(UserContext).csrf_token;
   const [goals, setGoals] = useState(props.meeting.health_goals)
 
-  function addGoal(member_id) {
-    let newGoals = [...goals]
-    newGoals = newGoals.map(g => ({...g, newInput: false}))
-    newGoals = [...newGoals, {goal: '', newInput: true, member_id, status: 0, meeting_id: props.meeting.id} ] 
-    setGoals(newGoals)
+  function addGoal(memberId) {
+    saveGoal('/new-goal', {
+      inputValue: '',
+      goalStatus: '',
+      status: 0,
+      memberId,
+      meetingId: props.meeting.id
+    })
+    .then((res)=> {
+       let newGoals = [...goals]
+       newGoals = newGoals.map(g => ({...g, newInput: false}))
+       newGoals = [...newGoals, {id: res.id, goal: res.goal, newInput: true, member_id: memberId, status: res.status, meeting_id: props.meeting.id} ] 
+      setGoals(newGoals)
+    })
   } 
 
   function removeGoal(goal_id) {

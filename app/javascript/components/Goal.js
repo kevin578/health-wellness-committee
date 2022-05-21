@@ -31,9 +31,6 @@ const Goal = (props)=> {
   }, [mode])
 
   useEffect(()=> {
-    if (!props.goalId) {
-      newGoal()
-    }
     if (goalInput && props.newInput) {
       goalInput.current.focus()
     }
@@ -78,15 +75,6 @@ const Goal = (props)=> {
   }
 
   function newGoal() {
-    props.saveGoal('/new-goal', {
-      inputValue,
-      goalStatus,
-      memberId: props.userId,
-      meetingId: props.meetingId
-    })
-    .then((res)=> {
-      setGoalId(res.id)
-    })
   }
 
   function updateGoal(g, i) {
