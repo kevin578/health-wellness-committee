@@ -1,6 +1,5 @@
 import React, { createContext } from 'react';
 import HealthMeeting from './HealthMeeting';
-import Container from './Container';
 
 export const UserContext = createContext('')
 
@@ -29,9 +28,9 @@ const Dashboard = (props)=> {
 
   return (
     <UserContext.Provider value = { userContextData }>
-      <Container>
+      <div className = 'container'>
         <table className = "w-full border-collapse table-fixed">
-          <thead className = "bg-indigo-700 h-10 text-white">
+          <thead className = "h-10">
             <tr>
               <th className = "border-none pt-1 w-36">Date</th>
               {getHeaders()}
@@ -41,7 +40,7 @@ const Dashboard = (props)=> {
             {getBody()}
           </tbody>
         </table>
-      </Container>
+      </div>
     </UserContext.Provider>
   )
 }
