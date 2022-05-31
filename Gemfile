@@ -37,6 +37,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'pry', '~> 0.13.1'
 
+gem "haml-rails"
 
 gem 'webpacker', '~> 5.x'
 gem 'react-rails'
