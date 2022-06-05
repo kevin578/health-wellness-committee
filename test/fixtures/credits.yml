@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  member_id: 1
+  task_id: MyString
+  integer: MyString
+  receiving_member_id: MyString
+  integer: MyString
+
+two:
+  member_id: 1
+  task_id: MyString
+  integer: MyString
+  receiving_member_id: MyString
+  integer: MyString

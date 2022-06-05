@@ -11,3 +11,16 @@
     - @last_meeting.health_goals.where(member_id: @current_member.id).each do | g |
       %li
         = g.goal
+  %ol Credits
+  - @current_family.members.each do |m|
+    - unless m.id == @current_member.id
+      %li
+        %span
+          = "#{m[:name]}: "
+        %span{id: "member-credit-count-#{m.id}"}        
+          = @current_member.credits_for_member(m.id)
+        %button.member_use_credit.bg-transparent.cursor-pointer.text-indigo-700{data: {member_id: @current_member.id, receiving_member_id: m.id}}
+          Use Credit
+        %button.member_add_credit.bg-transparent.cursor-pointer.text-indigo-700{data: {member_id: @current_member.id, receiving_member_id: m.id}}
+          Add Credit
+
