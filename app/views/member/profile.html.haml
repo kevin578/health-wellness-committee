@@ -4,7 +4,7 @@
   = form_with url: "/meeting/create", method: :post do |form|
     = form.submit "New Meeting", class: "bg-transparent cursor-pointer text-indigo-700"
   %div
-    = "Last #{link_to('meeting', meeting_healthgoals_path(@last_meeting.id), {target: '_blank', class: 'text-indigo-700'}).html_safe} was #{@last_meeting[:created_at].strftime("%B %d %Y")}".html_safe
+    = "Last #{link_to('meeting', meeting_healthgoals_path(@last_meeting.id), {class: 'text-indigo-700'}).html_safe} was #{@last_meeting[:created_at].strftime("%B %d %Y")}".html_safe
   %div
     Health Goals this week:
     %ul
